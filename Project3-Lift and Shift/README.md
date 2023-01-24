@@ -10,7 +10,7 @@
  * AWS CLI
 
 ##### Architecture on DataCenter:
-![Architecture-on-DC](images/Before-AWS.png)
+![Architecture-on-DC](images/Before-AWS.PNG)
 
 ##### Architecture on AWS:
 ![Architecture-on-AWS](images/Project-3.png)
@@ -18,18 +18,18 @@
 ### Step-1: Create Security Groups for Services
 
 - We will create `vprofile-ELB-SG` first. We will configure `Inbound` rules to Allow both `HTTP` and `HTTPS` on port `80` and `443` respectively  from Anywhere `IPv4` and `IPv6`.
-![](images/ELB-SecGrp.png)
+![](images/ELB-SecGrp.PNG)
 
 - Next we will create `vprofile-app-SG`. We will open port `8080` to accept connections from `vprofile-ELb-SG`.
-![](images/App-SecGrp.png)
+![](images/App-SecGrp.PNG)
 
 - Finally, we will create `vprofile-backend-SG`. WE need to open port `3306` for `MySQL`, `11211` for `Memcached` and `5672` for `RabbitMQ` server. We can check whcih ports needed fro aplication services to communicate each other from `application.properties` file under `src/main/resources` directory.We also need to open commucation `AllTraffic` from own SecGrp for backend services to communicate with each other.
-![](images/Backend-SecGrp.png)
+![](images/Backend-SecGrp.PNG)
 
 ### Step-2: Create KeyPair to Connect EC2 instances
 
 - We will create a Keypair to connect our instances via SSH.
-![](images/KeyPair.png)
+![](images/KeyPair.PNG)
 
 
 ### Step-3: Provision Backend EC2 instances with UserData script
@@ -52,7 +52,7 @@ sudo su -
 curl http://169.254.169.254/latest/user-data
 systemctl status mariadb
 ```
-![](images/mariadb-running.png)
+![](images/mariadb-running.PNG)
 
 ##### Memcached Instance:
 
@@ -73,7 +73,7 @@ curl http://169.254.169.254/latest/user-data
 systemctl status memcached.service
 ss -tunpl | grep 11211
 ```
-![](images/memcached-running.png)
+![](images/memcached-running.PNG)
 
 ##### RabbitMQ Instance:
 
@@ -93,7 +93,7 @@ sudo su -
 curl http://169.254.169.254/latest/user-data
 systemctl status rabbitmq-server
 ```
-![](images/rabbitmq-running.png)
+![](images/rabbitmq-running.PNG)
 
 _Note: It may take some time to run userdata script after you connect to server. You can check the process `ps -ef` to see if the process start for service. If not wait sometime and check with `systemctl status <service_name>` command again._
 
@@ -107,14 +107,14 @@ mc01 172.31.87.132
 ```
 - Create `vprofile.in` Private Hosted zone in Route53. we will pick `Default VPC` in `N.Virginia` region.
 
-![](images/route53-records.png)
+![](images/route53-records.PNG)
 
 - Now we will create records for our backend services. The purpose of this activity is we will use these record names in our `application.properties` file. Even if IP address of the services, our application won't need to change the config file.  
 ```sh
 Simple Routing -> Define Simple Record
 Value/Route traffic to: IP address or another value
 ```
-![](images/backend-records.png)
+![](images/backend-records.PNG)
 
 ### Step-4: Provision Application EC2 instances with UserData script
 
@@ -148,8 +148,8 @@ rabbitmq.address=rmq01.vprofile.in
 ```sh
 mvn install
 ```
-![](images/mvn-build-success.png)
-![](images/artifact-created.png)
+![](images/mvn-build-success.PNG)
+![](images/artifact-created.PNG)
 
 ### Step-6: Create S3 bucket using AWS CLI, copy artifact
 
@@ -161,7 +161,7 @@ name: vprofile-s3-admin
 Access key - Programmatic access
 Policy: s3FullAccess
 ```
-![](images/iam-user.png)
+![](images/iam-user.PNG)
 
 - Next we will configure our `aws cli` to use iam user credentials.
 ```sh
@@ -255,17 +255,17 @@ Select the certificate for HTTPS
 
 - We will create an A record with alias to ALB so that we can use our domain name to reach our application.
 
-![](images/record-for-elb.png)
+![](images/record-for-elb.PNG)
 
 - Lets check our application using our DNS. We can securely connect to our application!
 
-![](images/vprofileapp-https.png)  
+![](images/vprofileapp-https.PNG)  
 
 ### Step-10: Configure AutoScaling Group for Application Instances
 
 - We will create an AMI from our App Instance.
 
-![](images/vprofile-ami.png)
+![](images/vprofile-ami.PNG)
 
 - Next we will create a Launch template using the AMI created in above step for our ASG.
 ```sh
@@ -289,7 +289,7 @@ Target Tracking-CPU Utilization 50
 ```
 - If we terminate any instances we will see ASG will create a new one using LT that we created.
 
-![](images/asg-provisioning-instance.png)
+![](images/asg-provisioning-instance.PNG)
 
 ### Step-11: Clean-up
 
