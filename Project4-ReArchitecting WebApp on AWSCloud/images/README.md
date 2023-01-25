@@ -9,7 +9,7 @@
   * Maven
   * JDK8
 
-![Architecture](images/Project-4.png)
+![Architecture](Project-4.png)
 
 ### Step-1: Create Keypair for Beanstalk EC2 Login
 
@@ -19,12 +19,20 @@ Name: vprofile-bean-key
 ```
 - Remember where to download the private key, it will be used when logging in to EC2 via SSH.
 
+![Architecture](creating-bean-keypair.PNG)
+
+![Architecture](creating-bean-keypair1.PNG)
+
+
 ### Step-2: Create Security Group for ElastiCache, RDS and ActiveMQ
 
 - Create a Security Group with name `vprofile-backend-SG`. Once it is created we need to edit `Inbound` rules:
 ```sh
 All Traffic from `vprofile-backend-SG`
 ```  
+
+![Architecture](to-beabletologininto-dbinstance-adjustbackendSG.PNG)
+
 
 ### Step-3: Create RDS Database
 
@@ -37,6 +45,9 @@ AZ: Select All
 Subnet: Select All
 ```
 
+![Architecture](create-subnetgrp-rds.PNG)
+
+
 #### Create Parameter Group
 
 - We will create a parameter group to be used with our RDS instance. If we want to use default parameter group we don't need to create one. With parameter group, we are able make updates to default parameter for our RDS instance.
@@ -46,6 +57,9 @@ Parameter group family: mysql5.7
 Type: DB Parameter Group
 Group Name: vprofile-rds-para-grp
 ```
+
+![Architecture](create-para-rds.PNG)
+
 
 #### Create Database
 
@@ -68,7 +82,34 @@ Initial DB Name: accounts
 Keep the rest default or you may add as your own preference
 ```
 
+![Architecture](create-rds-db.PNG)
+
+![Architecture](create-rds-db1.PNG)
+
+![Architecture](create-rds-db2.PNG)
+
+![Architecture](create-rds-db3.PNG)
+
+![Architecture](create-rds-db4.PNG)
+
+![Architecture](create-rds-db5.PNG)
+
+![Architecture](create-rds-db6.PNG)
+
+![Architecture](create-rds-db7.PNG)
+
+![Architecture](create-rds-db8.PNG)
+
+![Architecture](create-rds-db9.PNG)
+
+![Architecture](create-rds-db10.PNG)
+
+![Architecture](create-rds-db11.PNG)
+
+
 - After clicking `Create` button, you will see a popup. Click `View credential details` and note down auto-generated db password. We will use it in our application config files.
+
+
 
 ### Step-3: Create ElastiCache
 
@@ -83,6 +124,9 @@ Description: vprofile-memcached-para-grp
 Family: memcached1.4
 ```
 
+![Architecture](elasticache-para-grp.PNG)
+
+
 #### Create Subnet Group:
 
 - First we will create `Subnet Groups` with below properties:
@@ -91,6 +135,9 @@ Name: vprofile-memcached-sub-grp
 AZ: Select All
 Subnet: Select All
 ```
+
+![Architecture](elasticache-sub-grp.PNG)
+
 
 #### Create Memcached Cluster
 
@@ -103,6 +150,13 @@ NodeType: cache.t2.micro
 # of Nodes: 1
 SecGrp: vprofile-backend-SG
 ```
+
+![Architecture](create-memcache.PNG)
+
+![Architecture](create-memcache1.PNG)
+
+![Architecture](create-memcache2.PNG)
+
 
 ### Step-4: Create Amazon MQ
 
@@ -119,6 +173,21 @@ private Access
 VPC: use default
 SEcGrp: vprofile-backend-SG
 ```
+
+![Architecture](create-ActiveMQ.PNG)
+
+![Architecture](create-ActiveMQ1.PNG)
+
+![Architecture](create-ActiveMQ2.PNG)
+
+![Architecture](create-ActiveMQ3.PNG)
+
+![Architecture](create-ActiveMQ4.PNG)
+
+![Architecture](create-ActiveMQ5.PNG)
+
+![Architecture](create-ActiveMQ6.PNG)
+
 
 - Do not forget to note down tour username/pwd. You won't be able to see your Password again from console.
 
@@ -178,6 +247,8 @@ ElastiCache:
 vprofile-elasticache-svc.eqmmsw.cfg.use1.cache.amazonaws.com:11211
 ```
 
+![Architecture](create-elastic-beanstalk.PNG)
+
 #### Create Application
 
 - Application in Elastic Beanstalk means like a big container which can have multiple environments. Since out app is Running on Tomcat we will choose `Tomcat` as platform.
@@ -201,6 +272,19 @@ Percentage :50 %
 EC2 key pair: vprofile-bean-key
 ```
 
+![Architecture](Beanstalk1.PNG)
+
+![Architecture](Beanstalk2.PNG)
+
+![Architecture](Beanstalk3.PNG)
+
+![Architecture](Beanstalk4.PNG)
+
+![Architecture](Beanstalk5.PNG)
+
+![Architecture](Beanstalk6.PNG)
+
+
 ### Step-5: Update Backend SecGrp & ELB
 
 - Our application instances created by BeanStalk will communicate with Backend services. We need update `vprofile-backend-SG` to allow connection from our appSecGrp created by Beanstalk on port `3306`, `11211` and `5671` 
@@ -209,7 +293,7 @@ Custom TCP 3306 from Beanstalk SecGrp(you can find id from EC2 insatnces)
 Custom TCP 11211 from Beanstalk SecGrp
 Custom TCP 5671 from Beanstalk SecGrp
 ```
-![](images/backend-SecGrp.png)
+![](to-beabletologininto-dbinstance-adjustbackendSG.PNG)
 
 - In Elastic Beanstalk console, under our app environment, we need to clink Configuration and do below changes and apply:
 ```sh
@@ -242,7 +326,12 @@ mvn install
 
 - Now we will select our uploaded application and click Deploy.
 
-![](images/app-deployed.png)
+![](upload-artifactto-EBSTALK.PNG)
+
+![](upload-artifactto-EBSTALK1.PNG)
+
+![](upload-artifactto-EBSTALK2.PNG)
+
 
 - Let's check if our application deployed successfully.
 
