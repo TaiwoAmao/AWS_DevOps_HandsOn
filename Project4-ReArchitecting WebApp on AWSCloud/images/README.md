@@ -335,8 +335,7 @@ mvn install
 
 - Let's check if our application deployed successfully.
 
-![](images/app-running-in-bs.png)
-![](images/app-running-from-beanstalk.png)
+![](page-from-beanstalk.PNG)
 
 ### Step-7: Create DNS Record in Route53 for Application
 
@@ -344,7 +343,11 @@ mvn install
 
 - Now we can reach our application securely with DNS name we have given.
 
-![](images/create-record-for-ebstalk.png)
+![](image-from-GoDaddyURL.PNG)
+
+![](page-from-GoDaddyURL.PNG)
+
+![](valid-certificate.PNG)
 
 ### Step-8: Create Cloudfront Distribution for CDN
 
@@ -358,7 +361,20 @@ Security policy: TLSv1
 ``` 
 - Now we can check our application from browser.
 
-![](images/app-distributed-from-cdn.png)
+![](create-cdn1.PNG)
+
+![](create-cdn2.PNG)
+
+![](create-cdn3.PNG)
+
+![](create-cdn4.PNG)
+
+![](create-cdn5.PNG)
+
+![](create-cdn6.PNG)
+
+![](create-cdn7.PNG)
+
 
 ### Step-9: Clean-up
 
