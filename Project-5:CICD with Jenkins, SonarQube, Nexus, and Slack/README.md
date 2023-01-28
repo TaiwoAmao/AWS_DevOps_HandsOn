@@ -259,7 +259,7 @@ sleep 30
 reboot
 ```
 
-![](images/flow-chart.png)
+![](images/flow-chart.PNG)
 
 ### Step-4: Post Installation Steps
 
