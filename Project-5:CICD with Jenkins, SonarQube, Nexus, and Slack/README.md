@@ -334,7 +334,7 @@ Member repositories:
  - vprofile-release
  - vprofile-snapshot
 ```
-![](images/Nexus-create-repo.png)
+![](images/Nexus-create-repo.PNG)
 
 #### For SonarQube Server:
 
@@ -447,7 +447,7 @@ git ls-remote -h -- git@github.com:rumeysakdogan/vprociproject.git HEAD
 
 - Now its Build time. Our build pipeline is successful!
 
-![](images/build-job-successful.png)
+![](images/build-job-successful.PNG)
 
 ### Step-7: Setup GitHub Webhook and update Jenkins Job
 
@@ -455,7 +455,7 @@ git ls-remote -h -- git@github.com:rumeysakdogan/vprociproject.git HEAD
 
 - Go to Github repository, `Settings` -> `Webhooks` -> Add `JenkinsURL` with `/github-webhook/` at the end.
 
-![](images/github-webhook.png)
+![](images/github-webhook.PNG)
 
 - Next we will go to Jenkins and add below configuration to our `vprofile-ci-pipeline` jon.
 ```sh
@@ -491,7 +491,7 @@ stage('Test') {
 
 - Our job is triggered automatically after `git push`. And build is successful.
   
-![](images/build-successful.png)
+![](images/build-successful.PNG)
 
 ### Step-8: Code Analysis with SonarQube
 
@@ -515,7 +515,7 @@ Server URL: http://<private_ip_of_sonar_server>
 Server authentication token: we need to create token from sonar website
 ```
 
-![](images/sonartoken.png)
+![](images/sonartoken.PNG)
 
 - We will add our sonar token to global credentials.
 ```sh
@@ -559,8 +559,8 @@ SONARSCANNER = 'sonarscanner'
 
 - We can see quality gate results in SonarQube server.
 
-![](images/sonar-quality-gate-status.png)
-![](images/scanning-complete.png)
+![](images/sonar-quality-gate-status.PNG)
+![](images/scanning-complete.PNG)
 
 - We can create our own Quality Gates and add to our project as well. click `Quality gate` -> `Create`. add `Condition`. You can give `Bug is greater than 80` then Save it.
 click on projectname it will have a dropdown, click `Quality Gate` and choose the new Quality gate you have created.  
@@ -570,7 +570,7 @@ Next we will create a Webhook in SonarQube to send the analysis results to jenki
 ```sh
 http://<private_ip_of_jenkins>:8080/sonarqube-webhook
 ```
-![](images/sonar-webhooks.png)
+![](images/sonar-webhooks.PNG)
 
 - We will add below stage to our pipeline and commit changes to Github.
 ```sh
@@ -585,7 +585,7 @@ http://<private_ip_of_jenkins>:8080/sonarqube-webhook
 
 - We can see BUILD is successful!
 
-![](images/build-success-till-qg.png)
+![](images/build-success-till-qg.PNG)
 
 ### Step-9: Publish Artifact to Nexus Repo
 
@@ -621,11 +621,11 @@ stage('UPLOAD ARTIFACT') {
 
 - Build is successful.
   
-![](images/build-success-till-nexus.png)
+![](images/build-success-till-nexus.PNG)
 
 - Artifact is uploaded to Nexus repository.
 
-![](images/artifact-stored-in-nexus.png)
+![](images/artifact-stored-in-nexus.PNG)
 
 ### Step-10: Slack Notification
 
@@ -633,7 +633,7 @@ stage('UPLOAD ARTIFACT') {
 
 - Next we need to Add jenkins app to slack. Search in Google with `Slack apps`. Then search for `jenkins` add to Slack. We will choose the channel `jenkins-cicd`. It will give us to setup instructions, from there copy `Integration token credential ID` .
 
-![](images/slack-apps.png)
+![](images/slack-apps.PNG)
 
 - We will go to Jenkins dashboard `Configure system` -> `Slack`
 ```sh
@@ -649,7 +649,7 @@ name: slacktoken
 description: slacktoken
 ```
 
-![](images/slack-connection-successful.png)
+![](images/slack-connection-successful.PNG)
 
 - We will add below part to our Jenkinsfile in the same level with stages and push our changes.
 ```sh
