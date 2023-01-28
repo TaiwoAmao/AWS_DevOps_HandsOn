@@ -555,7 +555,7 @@ SONARSCANNER = 'sonarscanner'
 
 - Our job is completed succesfully.
 
-![](images/build-success-till-sonar.png)
+![](images/build-success-till-sonar.PNG)
 
 - We can see quality gate results in SonarQube server.
 
@@ -664,4 +664,4 @@ post{
 ```
 -  Voila! We get our Notification from slack.
 
-![](images/slack-notifications.png)
+![](images/slack-notifications.PNG)
