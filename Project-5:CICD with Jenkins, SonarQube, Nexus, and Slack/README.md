@@ -271,7 +271,7 @@ sudo -i
 system status jenkins
 cat /var/lib/jenkins/secrets/initialAdminPassword 
 ```
-![](images/jenkins-page.png)
+![](images/jenkins-page.PNG)
 
 - Go to browser, `http://<public_ip_of_jenkins_server>:8080`, enter initialAdminPasswrd. We will also install suggested plugins. Then we will create our first admin user.
 
