@@ -206,6 +206,12 @@ Bucket name: vprofile98-build-artifact
 object name: pipeline-artifact
 ```
 
+![](images/create-code-pipeline.PNG)
+
+![](images/create-code-pipeline1.PNG)
+
+![](images/create-code-pipeline2.PNG)
+
 We will add Test and Deploy stages to our pipeline.
 
 Last step before running our pipeline is we need to setup Notifications, go to Settings in `CodePipeline` -> `Notifications`. 
