@@ -76,7 +76,7 @@ Domain name: visualpath
 ```
 - Again we will follow connection instructions given in CodeArtifact for  `maven-central-repo`.
 
-![](images/artifact-connection-steps.PNG)
+![](images/artifact-connection-steps.png)
 
 - We will need to create an IAM user for CodeArtifact and configure aws cli with its credentials. We will give Programmatic access to this user to be able to use aws cli and download credentials file.
 ```sh
