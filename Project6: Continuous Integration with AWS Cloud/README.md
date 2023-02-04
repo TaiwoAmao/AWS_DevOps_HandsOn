@@ -23,15 +23,15 @@ Next we will create an IAM user with `CodeCommit` access from IAM console. We wi
 Name: vprofile-code-admin-repo-fullaccess
 ```
 
-![](images/iam-codecommit-admin-user.png)
+![](images/iam-codecommit-admin-user.PNG)
 
 To be able connect our repo, we will follow steps given in CodeCommit.
 
-![](images/repo-connection-steps.png)
+![](images/repo-connection-steps.PNG)
 
 First Create SSH key in local and add public key to IAM role Security credentials.
 
-![](images/sshkey-generated-local.png)
+![](images/sshkey-generated-local.PNG)
 
 We will also update configuration under `.ssh/config` and add our Host information. And change permissions with `chmod 600 config`
 ```sh
@@ -45,7 +45,7 @@ We can test our ssh connection to CodeCommit.
 ssh git-codecommit.us-east-1.amazonaws.com
 ```
 
-![](images/codecommit-ssh-connection-successful.png)
+![](images/codecommit-ssh-connection-successful.PNG)
 
 Next we clone the repository to a location that we want in our local. I will use the Github repository for `vprofile-project` in my local, and turn this repository to CodeCommit repository. When I am in Github repo directory, I will run below commands.
 [Project code](https://github.com/rumeysakdogan/vprofileproject-all.git)
@@ -63,7 +63,7 @@ git push --tags
 ```
 - Our repo is ready on CodeCommit with all branches.
 
-![](images/codecommit-repo-ready.png)
+![](images/codecommit-repo-ready.PNG)
 
 ### Step-2: Setup AWS CodeArtifact
 
@@ -76,13 +76,13 @@ Domain name: visualpath
 ```
 - Again we will follow connection instructions given in CodeArtifact for  `maven-central-repo`.
 
-![](images/artifact-connection-steps.png)
+![](images/artifact-connection-steps.PNG)
 
 - We will need to create an IAM user for CodeArtifact and configure aws cli with its credentials. We will give Programmatic access to this user to be able to use aws cli and download credentials file.
 ```sh
 aws configure # provide iam user credentials
 ```
-![](images/iam-cart-admin-user.png)
+![](images/iam-cart-admin-user.PNG)
 
 Then we run command get token as in the instructions.
 ```sh
@@ -99,7 +99,7 @@ git push origin ci-aws
 
 We need to have an account, from account avatar -> `My Account` -> `Security`. Generate token name as `vprofile-sonartoken`. Note the token.
 
-![](images/sonar-token.png)
+![](images/sonar-token.PNG)
 
 Next we create a project, `+` -> `Analyze Project` -> `create project manually`. Below details will be used in our Build.
 ```sh
@@ -109,7 +109,7 @@ Public
 ```
 
 Our Sonar Cloud is ready!
-![](images/sonar-cloud-ready.png)
+![](images/sonar-cloud-ready.PNG)
 
 ### Step-4: Store Sonar variables in System Manager Parameter Store 
 
@@ -141,15 +141,15 @@ We need to update sonar_buildspec.yml file paramter store sections with the exac
 
 We need to add a policy to the service role created for this Build project. Find name of role from Environment, go to IAM add policy as below:
 
-![](images/ssm-parameter-access-policy.png)
+![](images/ssm-parameter-access-policy.PNG)
 
 It is time to Build our project.
 
-![](images/sonarbuild-successful.png)
+![](images/sonarbuild-successful.PNG)
 
 We can check from SonarCloud too.
 
-![](images/sonarcloud-after-build.png)
+![](images/sonarcloud-after-build.PNG)
 
 I can add Quality Gate to this Build Project, we can create a Qulaity gate from SonarCloud and add to our project.
 
@@ -170,21 +170,21 @@ StreamName: artifactbuildjob
 
 Its time to build project.
 
-![](images/build-artifact-success.png)
+![](images/build-artifact-success.PNG)
 
 ### Step-7: AWS CodePipeline and Notification with SNS
 
 First we will create an SNS topic from SNS service and subscribe to topic with email.
 
-![](images/sns-topic-created.png)
+![](images/sns-topic-created.PNG)
 
 We need confirm our subscription from our email.
 
-![](images/confirm-SNS-subscription.png)
+![](images/confirm-SNS-subscription.PNG)
 
 Next we create an S3 bucket to store our deploy artifacts.
 
-![](images/s3-for-storing-artifacts.png)
+![](images/s3-for-storing-artifacts.PNG)
 
 Lets create our CodePipeline.
 ```sh
@@ -206,7 +206,7 @@ Last step before running our pipeline is we need to setup Notifications, go to S
 
 Time to run our CodePipeline.
 
-![](images/codepipeline-succesful.png)
+![](images/codepipeline-succesful.PNG)
 
 ### Step-8: Validate CodePipeline
 
