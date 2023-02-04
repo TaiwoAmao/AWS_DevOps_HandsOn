@@ -159,6 +159,11 @@ We can check from SonarCloud too.
 
 I can add Quality Gate to this Build Project, we can create a Qulaity gate from SonarCloud and add to our project.
 
+![](images/sonar-cloud-qualitygate.PNG)
+
+![](images/failed-after-sonargatequality.PNG)
+
+
 ### Step-6: AWS CodeBuild for Build Artifact
 
 From AWS Console, go to `CodeBuild` -> `Create Build Project`. This step is similar to Jenkins Job.
